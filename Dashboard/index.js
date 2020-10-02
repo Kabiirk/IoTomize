@@ -12,9 +12,9 @@ async function getData(){
     console.log("dataset",dataset)
     return dataset
 }
-var data = getData()
+// var data = getData()
 
-console.log("data",data)
+// console.log("data",data)
 
 $(function () {
 
@@ -103,7 +103,9 @@ $(function () {
 
   var myChart = new Chart(chart, {
     type: 'bar',
+
     data: {
+      title: "hello",
       labels: ["Monday", "Tuseday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
       datasets: [{
         label: "Value",
@@ -118,7 +120,7 @@ $(function () {
         borderWidth: 2,
         showLine: true,
       }]
-    },
+    }
   });
   //  Chart ( 2 )
 
@@ -179,7 +181,7 @@ $(function () {
   var myChart = new Chart(chart, {
     type: 'line',
     data: {
-      labels: ["One", "Two", "Three", "Four", "Five", 'Six', "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"],
+      labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24], //green
       datasets: [{
         label: "Lost",
         fill: false,
@@ -189,7 +191,7 @@ $(function () {
         borderColor: '#d9534f',
         borderWidth: 0,
         showLine: true,
-        data: [0, 40, 10, 30, 10, 20, 15, 20, 10, 20, 15, 20],
+        data: [0, 40, 10, 30, 10, 20, 15, 20, 10, 20, 15,20,23,22,13,11,25,35,33,21,9,10,11,4], //red
         pointBackgroundColor: 'transparent',
       },{
         label: "Lost",
@@ -199,31 +201,31 @@ $(function () {
         borderColor: '#5cb85c',
         borderWidth: 0,
         showLine: true,
-        data: [40, 0, 20, 10, 25, 15, 30, 0, 20, 10, 25, 15],
+        data: [40, 0, 20, 10, 25, 15, 30, 0, 20, 10, 25, 15,34,4,12,23,12,32,22,12,32,11,9,8,7,4,7,0], //blue
         pointBackgroundColor: 'transparent',
       },
-                 {
-                   label: "Lost",
-                   fill: false,
-                   lineTension: .5,
-                   pointColor: "white",
-                   borderColor: '#f0ad4e',
-                   borderWidth: 0,
-                   showLine: true,
-                   data: [10, 40, 20, 5, 35, 15, 35, 0, 35, 15, 35, 0],
-                   pointBackgroundColor: 'transparent',
-                 },
-                 {
-                   label: "Lost",
-                   fill: false,
-                   lineTension: .5,
-                   pointColor: "white",
-                   borderColor: '#337ab7',
-                   borderWidth: 0,
-                   showLine: true,
-                   data: [0, 30, 10, 25, 10, 40, 20, 0, 30, 10, 25, 30],
-                   pointBackgroundColor: 'transparent',
-                 }]
+      {
+        label: "Lost",
+        fill: false,
+        lineTension: .5,
+        pointColor: "white",
+        borderColor: '#f0ad4e',
+        borderWidth: 0,
+        showLine: true,
+        data: [10, 40, 20, 5, 35, 15, 35, 0, 35, 15, 35, 0,1,4,5,8,9,10,11,34,33,21,22,21],//yellow
+        pointBackgroundColor: 'transparent',
+      },
+      {
+        label: "Lost",
+        fill: false,
+        lineTension: .5,
+        pointColor: "white",
+        borderColor: '#337ab7',
+        borderWidth: 0,
+        showLine: true,
+        data: [0, 30, 10, 25, 10, 40, 20, 0, 30, 10, 25, 30,33,35,22,1,21,24,2,27,26,29,30,12],
+        pointBackgroundColor: 'transparent',
+      }]
     },
   });
 
@@ -247,6 +249,137 @@ var myChart = new Chart(ctx, {
         }]},
         options: {
             responsive: true, // Instruct chart js to respond nicely.
-            maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+            maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
           }      
 });
+
+
+
+
+function b1click(){
+  var x = document.getElementById('b1')
+  if(x.innerHTML == "Led is OFF"){
+    x.innerHTML = "Led is ON"
+  }
+  else{
+    x.innerHTML = "Led is OFF"
+  }
+
+}
+function b2click(){
+  var x = document.getElementById('b2')
+  if(x.innerHTML == "Led is OFF"){
+    x.innerHTML = "Led is ON"
+  }
+  else{
+    x.innerHTML = "Led is OFF"
+  }
+
+  fetch.post('')
+
+}
+function b3click(){
+  var x = document.getElementById('b3')
+  if(x.innerHTML == "Led is OFF"){
+    x.innerHTML = "Led is ON"
+  }
+  else{
+    x.innerHTML = "Led is OFF"
+  }
+
+}
+function b4click(){
+  var x = document.getElementById('b4')
+  if(x.innerHTML == "Led is OFF"){
+    x.innerHTML = "Led is ON"
+  }
+  else{
+    x.innerHTML = "Led is OFF"
+  }
+
+}
+
+async function makedev(){
+  var da = {
+    "DeviceName": 'dd2',
+    "time":[0],
+    "status": "false"
+  }
+  const rawResponse = await fetch('http://localhost:8080/api/createdevice', {
+    method: 'POST', // or 'PUT'
+    mode: 'cors',
+    body: JSON.stringify(da),
+  })
+  const content = await rawResponse.json();
+  console.log("posted",content)
+}
+
+
+
+async function pltdata(){
+  var data = await fetch('http://localhost:8080/api/devdata')
+  const pltd = await data.json()
+  var xa = []
+  for(i=1;i<=pltd.length;i++){
+    xa.push(i)
+  }
+  var finda = []
+  pltd.forEach(element => {
+    finda.push(element.time)
+  });
+  console.log("findsa",finda)
+
+  var Chart2 = document.getElementById('myChartplt').getContext('2d');
+  var chart = new Chart(Chart2, {
+    type: 'line',
+    data: {
+      labels: xa,
+      datasets: [{
+        label: "My First dataset",
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 79, 116)',
+        borderWidth: 2,
+        pointBorderColor: false,
+        data: finda[xa.length - 3],
+        fill: false,
+        lineTension: .4,
+      }, {
+        label: "Month",
+        fill: false,
+        lineTension: .4,
+        startAngle: 2,
+        data: finda[xa.length - 2],
+        // , '#ff6384', '#4bc0c0', '#ffcd56', '#457ba1'
+        backgroundColor: "transparent",
+        pointBorderColor: "#4bc0c0",
+        borderColor: '#4bc0c0',
+        borderWidth: 2,
+        showLine: true,
+      }, {
+        label: "Month",
+        fill: false,
+        lineTension: .4,
+        startAngle: 2,
+        data: finda[xa.length - 1],
+        // , '#ff6384', '#4bc0c0', '#ffcd56', '#457ba1'
+        backgroundColor: "transparent",
+        pointBorderColor: "#ffcd56",
+        borderColor: '#ffcd56',
+        borderWidth: 2,
+        showLine: true,
+      }]
+    },
+
+    // Configuration options
+    options: {
+      title: {
+        display: false
+      }
+    }
+  });
+
+  
+
+}
+
+pltdata()
